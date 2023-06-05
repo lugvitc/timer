@@ -1,24 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './style.css';
+
+
+const API_URL = 'https://worldtimeapi.org/api/ip';
 
 function App() {
+  const [currentTime, setCurrentTime] = useState(null);
+  const targetTime = new Date('June 9, 2023 10:00:00').getTime();
+
+  useEffect(() => {
+    const fetchCurrentTime = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setCurrentTime(response.data.unixtime * 1000);
+      } catch (error) {
+        console.error('Error fetching current time:', error);
+      }
+    };
+    const generateRandomConfetti = () => {
+      const confettiElements = document.getElementsByClassName('confetti');
+      for (let i = 0; i < confettiElements.length; i++) {
+        const randomX = Math.random();
+        const randomDelay = Math.random();
+        confettiElements[i].style.setProperty('--random-x', randomX);
+        confettiElements[i].style.setProperty('--random-delay', randomDelay);
+      }};
+
+    generateRandomConfetti();
+    
+
+    const timer = setInterval(fetchCurrentTime, 1000);
+    return () => clearInterval(timer);
+    
+  }, []);
+
+  const formatTime = (time) => {
+    const seconds = Math.floor((time / 1000) % 60);
+    const minutes = Math.floor((time / 1000 / 60) % 60);
+    const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(time / (1000 * 60 * 60 * 24));
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  };
+
+  const calculateTimeRemaining = () => {
+    const now = currentTime || Date.now();
+    return targetTime - now;
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <h1 className="title">Password</h1>
+  {currentTime ? (
+    <h2 className="timer">{formatTime(calculateTimeRemaining())}</h2>
+  ) : (
+    <h2 className="loading">Loading...</h2>
+  )}
+
+  <div className="confetti-container">
+    {[...Array(25)].map((_, index) => (
+      <div className="confetti" key={index}></div>
+    ))}
+  </div>
+</div>
+
   );
 }
 
