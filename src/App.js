@@ -65,7 +65,7 @@ function App() {
 
   return (
     <div className="App">
-  <h1 className="title">Password</h1>
+  <h1 className="title">PASSWORD</h1>
   {currentTime ? (
     <h2 className="timer">{formatTime(calculateTimeRemaining())}</h2>
   ) : (
