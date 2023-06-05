@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./style.css";
+import "./App.css";
 
 const API_URL = "https://worldtimeapi.org/api/ip";
+const targetTime = new Date("June 9, 2023 10:00:00").getTime();
 
 function App() {
   const [currentTime, setCurrentTime] = useState(null);
-  const targetTime = new Date("June 9, 2023 10:00:00").getTime();
-
+  const fetchCurrentTime = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setCurrentTime(response.data.unixtime * 1000);
+    } catch (error) {
+      console.error("Error fetching current time:", error);
+    }
+  };
   useEffect(() => {
-    const fetchCurrentTime = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        setCurrentTime(response.data.unixtime * 1000);
-      } catch (error) {
-        console.error("Error fetching current time:", error);
-      }
-    };
+    
     const generateRandomConfetti = () => {
       const confettiElements = document.getElementsByClassName("confetti");
       for (let i = 0; i < confettiElements.length; i++) {
