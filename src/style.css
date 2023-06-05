@@ -3,7 +3,6 @@
   src: url('../content/Press_Start_2P/PressStart2P-Regular.ttf') format('truetype');
 }
 
-/* Nord color palette */
 :root {
   --nord-0: #2e3440;
   --nord-1: #3b4252;
@@ -93,6 +92,13 @@ body {
   left: calc(100% * var(--random-x));
   animation-delay: calc(var(--random-delay) * 1s);
 }
+.moving-text {
+  position: fixed;
+  font-size: 18px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
 
 @keyframes confetti {
   0% {

@@ -49,6 +49,20 @@ function App() {
     return targetTime - now;
   };
 
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      const text = document.querySelector('.moving-text');
+      text.style.left = event.pageX + 'px';
+      text.style.top = event.pageY + 'px';
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   return (
     <div className="App">
   <h1 className="title">Password</h1>
@@ -63,6 +77,7 @@ function App() {
       <div className="confetti" key={index}></div>
     ))}
   </div>
+  <div className="moving-text">capture.survive.escape</div>
 </div>
 
   );
