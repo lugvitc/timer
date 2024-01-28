@@ -116,3 +116,8 @@ body {
   src: url("./content/Press_Start_2P/PressStart2P-Regular.ttf")
     format("truetype");
 }
+img{
+  position: relative;
+  opacity: 80%;
+
+}

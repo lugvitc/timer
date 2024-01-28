@@ -5,7 +5,7 @@ import "./App.css";
 import { tsParticles } from "tsparticles-engine";
 import Particle from "./content/particle/Particle";
 const API_URL = "https://worldtimeapi.org/api/ip";
-const targetTime = new Date("January 29, 2024 18:00:00").getTime();
+const targetTime = new Date("January 28, 2024 19:18:00").getTime();
 
 function App() {
   const [currentTime, setCurrentTime] = useState(null);
@@ -35,21 +35,26 @@ function App() {
   }, []);
 
   const formatTime = (time) => {
+    if (time === 0) {
+      return "00 : 00 : 00";
+    }
+  
     const seconds = Math.floor((time / 1000) % 60);
     const minutes = Math.floor((time / 1000 / 60) % 60);
-    const days = Math.floor(time / (1000 * 60 * 60 * 24));
-    let hours =0;
-    hours = Math.floor((time / (1000 * 60 * 60)) % 24);
-    if(days>0){
-       hours = Math.floor((time / (1000 * 60 * 60)) % 24) + 24;
-    }
-
-    return ` ${hours} : ${minutes} : ${seconds}`;
+    const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+  
+    return `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
   };
 
   const calculateTimeRemaining = () => {
     const now = currentTime || Date.now();
-    return targetTime - now;
+    const remainingTime = targetTime - now;
+  
+    if (remainingTime <= 0) {
+      return 0;
+    }
+  
+    return remainingTime;
   };
 
   useEffect(() => {
@@ -103,7 +108,11 @@ function App() {
   return (
     <div className="App">
       <Particle/>
+      <div className="logo-container">
+        <img src="https://cloud.shrimic.in/index.php/s/t4bpqCC7EdWf7k8/download/LUG_LOGO.png" alt="Logo" className="logo" />
+      </div>
       <h1 className="title">PASSWORD</h1>
+      
       {currentTime ? (
         <h2 className="timer">{formatTime(calculateTimeRemaining())}</h2>
       ) : (
@@ -115,7 +124,9 @@ function App() {
           <div className="confetti" key={index}></div>
         ))}
       </div>
-      <div className="moving-text">capture.survive.escape</div>
+      {/* Centered logo container */}
+      
+      <div className="moving-text">attack.defend.survive</div>
 
       {/* <h1
         className="phelix-boomgartner animate-glitch-anim-text text-white drop-shadow-3xl md:text-3xl lg:text-5xl xl:text-7xl"
