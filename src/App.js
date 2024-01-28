@@ -5,7 +5,7 @@ import "./App.css";
 import { tsParticles } from "tsparticles-engine";
 import Particle from "./content/particle/Particle";
 const API_URL = "https://worldtimeapi.org/api/ip";
-const targetTime = new Date("January 28, 2024 19:18:00").getTime();
+const targetTime = new Date("January 29, 2024 18:00:00").getTime();
 
 function App() {
   const [currentTime, setCurrentTime] = useState(null);
@@ -41,7 +41,7 @@ function App() {
   
     const seconds = Math.floor((time / 1000) % 60);
     const minutes = Math.floor((time / 1000 / 60) % 60);
-    const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+    const hours = Math.floor((time / (1000 * 60 * 60)));
   
     return `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
   };
