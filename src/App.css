@@ -4,7 +4,7 @@ body {
   padding: 0;
   position: relative;
   overflow: hidden;
-  background-color: var(--nord-0);
+  background-color: #04040b;
   color: var(--nord-4);
   display: flex;
   align-items: center;
@@ -29,7 +29,8 @@ body {
 
 .timer {
   font-size: 48px;
-  color: var(--nord-9);
+  color: white;
+  z-index: 69;
 }
 
 .loading {
