@@ -5,7 +5,7 @@ import "./App.css";
 import { tsParticles } from "tsparticles-engine";
 import Particle from "./content/particle/Particle";
 const API_URL = "https://worldtimeapi.org/api/ip";
-const targetTime = new Date("January 29, 2024 20:00:00").getTime();
+const targetTime = new Date("January 29, 2024 20:30:00").getTime();
 
 function App() {
   const [currentTime, setCurrentTime] = useState(null);
